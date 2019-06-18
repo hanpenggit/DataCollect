@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>任务列表</title>
+    <link th:href="@{/css/layui.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/layer.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{/js/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lay/modules/layer.js}"></script>
+    <style>
+        .demoTable{
+            margin-top: 13px;
+        }
+    </style>
+</head>
+<body>
+<div class="demoTable">
+    单位名称：
+    <div class="layui-inline">
+        <input class="layui-input" name="UNITNAME" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload" id="search">搜索</button>
+    <button class="layui-btn" type="button" onclick="editJobInfo()">添加任务</button>
+</div>
+
+<table class="layui-hide" id="jobinfo" lay-filter="jobinfo"></table>
+
+<!--<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>-->
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+
+<script th:inline="none" type="text/javascript">
+    //当前页面的所需要的参数,公共变量只有这一个对象
+    var current_params={
+    };
+
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            id:'jobinfo'
+            ,elem: '#jobinfo'
+            ,url:'/jobs'
+            ,method:"post"
+            ,toolbar: '#toolbarDemo'
+            ,title: '任务信息'
+            ,cols: [[
+                /*{type: 'checkbox', fixed: 'left'},*/
+                {field:'ID', title:'ID', width:60, fixed: 'left', unresize: true, sort: true}
+                ,{field:'UNITNAME', title:'单位名称', width:150, edit: 'text'}
+                ,{field:'S_IP', title:'源端IP', width:120, edit: 'text'}
+                ,{field:'S_SID', title:'源端SID', width:120, edit: 'text'}
+                ,{field:'S_PORT', title:'源端端口号', width:80, edit: 'text'}
+                ,{field:'S_ULOGIN', title:'源端用户名', width:120, edit: 'text'}
+                ,{field:'S_PLOGIN', title:'源端密码', width:120, edit: 'text'}
+                ,{field:'S_OWNER', title:'源端所有者', width:100, edit: 'text'}
+                ,{field:'S_TABLE', title:'源端表名', width:200, edit: 'text'}
+                ,{field:'S_MVLOG', title:'物化视图名称', width:250, edit: 'text'}
+                ,{field:'T_IP', title:'目的端IP', width:120, edit: 'text'}
+                ,{field:'T_SID', title:'目的端SID', width:120, edit: 'text'}
+                ,{field:'T_PORT', title:'目的端端口号', width:80, edit: 'text'}
+                ,{field:'T_ULOGIN', title:'目的端用户名', width:120, edit: 'text'}
+                ,{field:'T_PLOGIN', title:'目的端密码', width:120, edit: 'text'}
+                ,{field:'T_OWNER', title:'目的端数据库所有者', width:100, edit: 'text'}
+                ,{field:'T_TABLE', title:'目的端表名', width:250, edit: 'text'}
+                ,{field:'T_PK', title:'目的端表主键', width:150, edit: 'text'}
+                ,{field:'T_COLS', title:'目的端表列名', width:200, edit: 'text'}
+                ,{field:'JOB_ID', title:'任务ID', width:200, edit: 'text'}
+                ,{field:'INPUT_COND', title:'INPUT_COND', width:200, edit: 'text'}
+                ,{field:'MVIEW_COND', title:'MVIEW_COND', width:200, edit: 'text'}
+                ,{field:'S_COLS', title:'源端表列名', width:200, edit: 'text'}
+                ,{field:'S_PK', title:'源端表主键', width:150, edit: 'text'}
+                ,{field:'CREATEDATE', title:'创建时间', width:200}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
+            ]]
+            ,page:true
+        });
+
+        //头工具栏事件
+        table.on('toolbar(jobinfo)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(jobinfo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+                layer.confirm('确定要删除吗', function(index){
+                    var layerindex;
+                    $.ajax({
+                        url: "/deletejob",
+                        method:"post",
+                        beforeSend:function(){
+                            layerindex = layer.load(0, {shade: false});
+                        },
+                        data:{
+                            id:data.ID,
+                        },success: function (result) {
+                            $('.demoTable .layui-btn').click();
+                            layer.close(layerindex);
+                        }
+                    });
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                editJobInfo(obj.data.ID,obj.data.UNITNAME);
+            }
+        });
+
+        //监听单元格编辑
+        table.on('edit(jobinfo)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+            var layerindex;
+            $.ajax({
+                url: "/editCellJob",
+                method:"post",
+                beforeSend:function(){
+                    layerindex = layer.load(0, {shade: false});
+                },
+                data:{
+                    id:data.ID,
+                    field:obj.field,
+                    value:obj.value
+                },success: function (result) {
+                    if(result>0){
+                        layer.msg('修改成功');
+                    }else{
+                        layer.msg('修改失败');
+                    }
+                    layer.close(layerindex);
+                }
+            });
+
+        });
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var unitname = $('input[name="UNITNAME"]').val();
+                //执行重载
+                table.reload('jobinfo', {
+                    page: {
+                        curr: $(".layui-laypage-skip input").val() //重新从第 x 页开始
+                    }
+                    ,where: {
+                        unitname: unitname
+                    }
+                }, 'data');
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+    function editJobInfo(id,unitname){
+        if(id){
+        }else{
+            id="";
+        }
+        layer.open({
+            type: 2,
+            title: unitname,
+            shadeClose: true,
+            // shade: false,
+            shade: 0.8,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '600px'],
+            btn: ['确定', '取消'],
+            content: '/jobInfo?id='+id,
+            yes:function(index,layero){
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = window[layero.find('iframe')[0]['name']];//得到iframe页的窗口对象，执行iframe页的方法：
+                var ids = iframeWin.submitData();//调用子页面的方法，得到子页面返回的ids
+                layer.close(index);//需要手动关闭窗口
+            }
+        });
+    }
+    function refreshData(){
+        $("#search").click();
+    }
+</script>
+
+</body>
+</html>
