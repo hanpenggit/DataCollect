@@ -13,11 +13,11 @@ import java.util.Map;
 public class DBTest {
     public static void main(String[] args) throws SQLException, IOException {
         String createSql=readFile();
-        Map<String,Object> m = ExcelOperate.createSqls();
+//        Map<String,Object> m = ExcelOperate.createSqls();
         Connection conn = ConnectionPool.getInstance().getConnection();
         crateTable(conn,createSql);
         conn.setAutoCommit(false);
-        exeSql(conn,m);
+//        exeSql(conn,m);
         conn.commit();
         count(conn,"select count(1) from T_JOB");
         conn.close();
@@ -27,7 +27,7 @@ public class DBTest {
     }
 
     public static String readFile() {
-        String fileName="/home/hanpeng/project/t_job.txt";
+        String fileName="E:/20190618老本装系统备份文件/hanpeng/t_job.txt";
         File file = new File(fileName);
         try {
             FileReader fileReader = new FileReader(file);

@@ -44,6 +44,7 @@ public class ThreadRun {
     }
 
     public static void main(String[] args) {
-        ThreadRun t=new ThreadRun("123");
+        ThreadRun t=new ThreadRun("hanpeng");
+        t.runJob();
     }
 }

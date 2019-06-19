@@ -48,11 +48,11 @@
 
 
 
-    <!-- https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc6 -->
+    <!-- oracle包也是本地安装 -->
     <dependency>
-      <groupId>com.Oracle</groupId>
+      <groupId>com.oracle</groupId>
       <artifactId>ojdbc5</artifactId>
-      <version>11</version>
+      <version>11.2.0</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
@@ -104,6 +104,11 @@ mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-engine -Dvers
 mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-test -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-test.jar
 mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-ui-swt -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-ui-swt.jar
     -->
+    <dependency>
+      <groupId>commons-vfs</groupId>
+      <artifactId>commons-vfs</artifactId>
+      <version>1</version>
+    </dependency>
     <dependency>
       <groupId>org.pentaho</groupId>
       <artifactId>kettle-core</artifactId>

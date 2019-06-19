@@ -19,7 +19,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 @Deprecated
 public class ExcelOperate {
     public static void main(String[] args) throws Exception {
-        File file = new File("/home/hanpeng/project/DATACOLLECT.xls");
+        File file = new File("E:/20190618老本装系统备份文件/hanpeng/DATACOLLECT.xls");
         String[][] result = getData(file, 0);
         int rowLength = result.length;
         System.out.println(rowLength);
@@ -39,7 +39,7 @@ public class ExcelOperate {
     public static Map<String,Object> createSqls() throws IOException {
         Map<String,Object> m=new HashMap<>();
         //insert into T_JOB (UNITNAME,S_IP,S_SID,S_PORT,S_ULOGIN,S_PLOGIN,S_OWNER,S_TABLE,S_MVLOG,T_IP,T_SID,T_PORT,T_ULOGIN,T_PLOGIN,T_OWNER,T_TABLE,T_PK,T_COLS,JOB_ID,INPUT_COND,MVIEW_COND,S_COLS,S_PK) values ()
-        File file = new File("/home/hanpeng/project/DATACOLLECT.xls");
+        File file = new File("E:/20190618老本装系统备份文件/hanpeng/DATACOLLECT.xls");
         String[][] result = getData(file, 1);
         int rowLength = result.length;
         List<String> sqls=new ArrayList<>();

@@ -120,7 +120,11 @@
                         data:{
                             id:data.ID,
                         },success: function (result) {
-                            $('.demoTable .layui-btn').click();
+                            if(result>0){
+                                refreshData();
+                            }else{
+                                layer.msg("删除失败");
+                            }
                             layer.close(layerindex);
                         }
                     });
