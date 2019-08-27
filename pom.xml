@@ -52,7 +52,7 @@
     <dependency>
       <groupId>com.oracle</groupId>
       <artifactId>ojdbc5</artifactId>
-      <version>11.2.0</version>
+      <version>11</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
@@ -97,12 +97,13 @@
 
     <!--kettle包是在本地安装的
     命令如下:
-    mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-core -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-core.jar
-mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-dbdialog -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-dbdialog.jar
-mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-db -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-db.jar
-mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-engine -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-engine.jar
-mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-test -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-test.jar
-mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-ui-swt -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/project/dataCollect/kettlelib/kettle-ui-swt.jar
+    mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-core -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/git/dataCollect/kettlelib/kettle-core.jar
+mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-dbdialog -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/git/dataCollect/kettlelib/kettle-dbdialog.jar
+mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-db -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/git/dataCollect/kettlelib/kettle-db.jar
+mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-engine -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/git/dataCollect/kettlelib/kettle-engine.jar
+mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-test -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/git/dataCollect/kettlelib/kettle-test.jar
+mvn install:install-file -DgroupId=org.pentaho -DartifactId=kettle-ui-swt -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/git/dataCollect/kettlelib/kettle-ui-swt.jar
+mvn install:install-file -DgroupId=commons-vfs -DartifactId=commons-vfs -Dversion=1 -Dpackaging=jar -Dfile=/home/hanpeng/git/dataCollect/kettlelib/commons-vfs-20100924-pentaho.jar
     -->
     <dependency>
       <groupId>commons-vfs</groupId>
